@@ -38,6 +38,26 @@ without the header and assigns the corrected names.
 2. PCA batch monitoring (Hotelling's T², Q/SPE); fault detection on 91–100
 3. PLS prediction of penicillin from Raman spectra, validated on held-out batches
 
+### Train/test split
+
+Batches are split once and saved in `splits/batch_split.csv` (script: `R/04_batch_split.R`, seed 20261031).
+Within each control strategy (1–30 recipe, 31–60 operator, 61–90 Raman APC), two thirds of the batches
+are used for training and one third is held out for testing. Faulty batches 91–100 are test only.
+Eleven batches with an unlabelled disturbance at about 90 h (see Results) are held out as their own
+test group, so that models are trained on clean normal operation. The digital twin project reuses this split.
+
+## Results
+
+### Finding: 90 h event
+
+Eleven of the 100 batches show a sharp dissolved-oxygen dip at about 90 h, across all three control
+strategies. All 100 batches receive the same scheduled aeration (Fg) step at that time. The affected
+batches had higher metabolic activity before the step: median CER from 70 to 88 h was 1.55 vs 1.41
+(Wilcoxon p < 0.001, fault batches excluded), and the nine highest-CER batches were all event batches.
+Working hypothesis: the aeration step destabilises the most active batches. This is an association in
+simulated data, not a confirmed mechanism. Batches 66 and 17 sit just below the apparent threshold;
+to check in M2.
+
 ## How to reproduce
 
 1. Download the data into `data/raw/`

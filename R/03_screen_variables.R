@@ -99,4 +99,4 @@ p <- ggplot(z, aes(`Time (h)`, value, colour = factor(`Batch ID`))) +
   labs(title = "IndPenSim (simulated): batch 44 vs batch 1 around the 90 h event") +
   theme_minimal(base_size = 9)
 print(p)
-ggsave("figures/event_90h_batch44.png", p, width = 12, height = 10, dpi = 150)$$
+ggsave("figures/event_90h_batch44.png", p, width = 12, height = 10, dpi = 150)
