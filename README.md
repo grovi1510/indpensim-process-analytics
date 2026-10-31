@@ -58,6 +58,43 @@ Working hypothesis: the aeration step destabilises the most active batches. This
 simulated data, not a confirmed mechanism. Batches 66 and 17 sit just below the apparent threshold;
 to check in M2.
 
+### Fixed-limit control charts (pH, T)
+
+pH and temperature are both under closed-loop control, so they were charted with fixed limits
+(mean ± 3 SD) from the recipe-strategy training batches, using data after 50 h to skip start-up
+transients (script: `R/06_control_charts_fixed.R`).
+
+**Phase I clean-up.** Two reference batches showed unlabelled events and were removed before
+the limits were set: batch 7 (pH dropped to 5.70 between 161 and 206 h) and batch 20 (temperature
+spike to 299.7 K at about 90 h). Batch 20 had no elevated pre-event CER, so the 90 h hypothesis
+above does not explain every case. Limits were computed from the remaining 16 batches.
+
+**Point-level alarms are not usable on their own.** Almost every batch, including the training
+batches, has at least one point outside ±3 SD. The data are autocorrelated (0.2 h sampling) and
+contain scheduled spikes, so the share of points outside the limits is well above the 0.27%
+expected for independent normal data.
+
+**Batch-level rule.** A batch is flagged when its percentage of time outside the limits exceeds
+that of the worst clean reference batch (pH 7.1%, T 5.0%). This is a deliberately loose threshold.
+
+| Group | pH | T |
+|---|---|---|
+| Held-out normal batches (false alarms) | 2/27 | 6/27 |
+| 90 h disturbance batches (detected) | 2/10 | 3/10 |
+| Fault batches 91–100 (detected) | 7/10 | 6/10 |
+
+**Interpretation.** Fixed limits on pH and T catch most faults but miss most 90 h events, and
+temperature raises too many false alarms in operator-controlled batches (4/9). Within the recipe
+strategy, pH limits transfer well (0/9 false alarms); across strategies they do not, because each
+strategy holds the setpoints differently. The main limitation is that pH and T are controlled
+variables: the controllers absorb disturbances before they appear there. The upset shows up
+instead in controller effort (base flow, cooling and heating) and in uncontrolled responses such
+as dissolved oxygen. The next step charts Fb, DO2 and CER with time-varying limits, and M2
+monitors all variables together with PCA.
+
+Results: `results/fixed_limits_pH_T.csv`, `results/fixed_limits_alarms.csv`.
+Data: IndPenSim, simulated.
+
 ## How to reproduce
 
 1. Download the data into `data/raw/`
