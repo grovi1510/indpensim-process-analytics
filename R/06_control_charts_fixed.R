@@ -16,9 +16,7 @@ source(here::here("R", "theme_portfolio.R"))
 
 ref_all <- dt[role == "train" & strategy == "recipe"]
 
-# Phase I clean-up: unlabelled events found in reference batches
-# batch 7: pH excursion 161-206 h (min 5.70); batch 20: T spike at ~90 h (299.7 K)
-ref_excluded <- c(7, 20)
+# Phase I clean-up: ref_excluded (batches 7 and 20) is set in key_variables.R
 
 long_ref <- melt(ref_all, id.vars = c("batch", "time"), measure.vars = fixed_lim)
 long_ref[, excluded := batch %in% ref_excluded]

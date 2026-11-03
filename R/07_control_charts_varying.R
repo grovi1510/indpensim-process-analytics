@@ -12,7 +12,7 @@ setnames(dt, c("Time (h)", "Batch ID"), c("time", "batch"))
 dt <- merge(dt, fread(here::here("splits", "batch_split.csv")), by = "batch")
 dt[, t_grid := round(time, 1)]   # align batches on a common time grid
 
-ref <- dt[role == "train" & strategy == "recipe" & !batch %in% c(7, 20)]
+ref <- dt[role == "train" & strategy == "recipe" & !batch %in% ref_excluded]
 
 # Envelope: mean ± 3 SD across reference batches at each time point
 env <- melt(ref, id.vars = c("batch", "t_grid"), measure.vars = varying_lim)[,
@@ -63,8 +63,3 @@ print(comb[role != "train", .(flagged = paste0(sum(any_alarm), "/", .N)), by = r
 
 ggsave(here::here("figures", "varying_limits_Fb_DO2_CER.png"), p_env, width = 8, height = 8, dpi = 150)
 fwrite(alarms_v, here::here("results", "varying_limits_alarms.csv"))
-
-comb2 <- alarms_v[, .(with_fb    = any(batch_alarm),
-                      without_fb = any(batch_alarm[variable != "Fb"])),
-                  by = .(batch, role, strategy)]
-fwrite(comb2, here::here("results", "varying_limits_combined.csv"))

@@ -78,16 +78,6 @@ zoom_vars <- screen[pct_present == 100 & n_unique > 1, variable]
 z <- melt(proc[`Batch ID` %in% c(1, 44) & `Time (h)` %between% c(80, 100)],
           id.vars = c("Batch ID", "Time (h)"), measure.vars = zoom_vars)
 
-p <- ggplot(z, aes(`Time (h)`, value, colour = factor(`Batch ID`))) +
-  geom_line() +
-  geom_vline(xintercept = 90, linetype = 2) +
-  facet_wrap(~ variable, scales = "free_y", ncol = 4) +
-  scale_colour_manual(values = c("1" = "grey50", "44" = "firebrick"), name = "Batch") +
-  labs(title = "IndPenSim (simulated): batch 44 vs batch 1 around the 90 h event") +
-  theme_minimal(base_size = 8)
-print(p)
-ggsave("figures/event_90h_batch44.png", p, width = 12, height = 10, dpi = 150)
-
 z[, code := sub("^.*\\(([^:]+):.*$", "\\1", variable)]
 z[, code := factor(code, levels = unique(code))]
 

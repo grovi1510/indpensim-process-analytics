@@ -51,3 +51,6 @@ rsconnect/
 
 # Data: never commit
 data/
+
+# macOS
+.DS_Store
