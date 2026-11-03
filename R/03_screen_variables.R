@@ -27,6 +27,7 @@ options(width = 200)
 print(screen[order(pct_present, -pct_zero)], nrows = 50)
 
 library(ggplot2)
+source(here::here("R", "theme_portfolio.R"))
 
 # Control-loop map: controlled variable (CV), manipulated variables (MV), disturbance
 loops <- list(
@@ -53,14 +54,12 @@ plot_loop <- function(name) {
   d[, panel := factor(paste0(names(v)[match(variable, v)], ": ", variable),
                       levels = paste0(names(v), ": ", v))]
   p <- ggplot(mapping = aes(`Time (h)`, value, group = `Batch ID`)) +
-    geom_line(data = d[set == "Reference 1-30"], colour = "grey75", alpha = 0.6) +
-    geom_line(data = d[set == "Faults 91-100"],
-              aes(colour = factor(`Batch ID`)), linewidth = 0.6) +
-    scale_colour_brewer(palette = "Paired", name = "Fault batch") +
+    geom_line(data = d[set == "Reference 1-30"], colour = col_ref, alpha = 0.6) +
+    geom_line(data = d[set == "Faults 91-100"], colour = col_strat[["fault"]],
+              alpha = 0.7, linewidth = 0.4) +
     facet_wrap(~ panel, scales = "free_y", ncol = 1) +
     labs(title = paste("IndPenSim (simulated):", name, "loop"),
-         subtitle = "Grey = reference batches 1-30") +
-    theme_minimal() + theme(legend.position = "right")
+         subtitle = "Grey = reference batches 1-30; black = fault batches 91-100")
   print(p)
   ggsave(paste0("figures/loop_", name, ".png"), p, width = 10, height = 9, dpi = 150)
 }
@@ -85,8 +84,8 @@ p <- ggplot(z, aes(`Time (h)`, value, colour = factor(`Batch ID`))) +
   geom_line() +
   geom_vline(xintercept = 90, linetype = 2) +
   facet_wrap(~ code, scales = "free_y", ncol = 4) +
-  scale_colour_manual(values = c("1" = "grey50", "44" = "firebrick"), name = "Batch") +
+  scale_colour_manual(values = c("1" = col_ref, "44" = col_strat[["operator"]]), name = "Batch") +
   labs(title = "IndPenSim (simulated): batch 44 vs batch 1 around the 90 h event") +
-  theme_minimal(base_size = 9)
+  theme(text = element_text(size = 9))
 print(p)
 ggsave("figures/event_90h_batch44.png", p, width = 12, height = 10, dpi = 150)

@@ -3,6 +3,7 @@
 
 library(data.table)
 library(ggplot2)
+source(here::here("R", "theme_portfolio.R"))
 
 proc <- readRDS("data/processed/process_vars.rds")
 
@@ -29,6 +30,7 @@ p <- ggplot(proc, aes(`Time (h)`, `Penicillin concentration(P:g/L)`,
   facet_wrap(~ grp) +
   labs(title = "IndPenSim (simulated): penicillin concentration by batch group",
        y = "Penicillin (g/L)") +
-  theme_minimal() + theme(legend.position = "none")
+  scale_colour_manual(values = setNames(unname(col_strat), levels(proc$grp))) +  # recipe, operator, APC, fault
+  theme(legend.position = "none")
 print(p)
 ggsave("figures/penicillin_by_group.png", p, width = 9, height = 6, dpi = 150)
