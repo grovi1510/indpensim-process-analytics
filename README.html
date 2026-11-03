@@ -354,24 +354,60 @@ display: none;
 
 <div id="indpensim-process-analytics-r" class="section level1">
 <h1>IndPenSim Process Analytics (R)</h1>
-<p>Process monitoring and PLS model validation on the IndPenSim
-penicillin fermentation benchmark, in R.</p>
-<p><strong>Status:</strong> in progress (Milestone 1: data and control
-charts)</p>
+<p>Process monitoring and model validation on the IndPenSim penicillin
+fermentation benchmark, in R.</p>
+<p><strong>Status:</strong> Milestone 1 complete (the unlabeled 90 h
+event and univariate control charts). Milestone 2 (PCA monitoring) is
+next.</p>
 <blockquote>
-<p><strong>All data in this project are simulated.</strong> IndPenSim is
+<p><strong>All data in this project is simulated.</strong> IndPenSim is
 a simulation of a 100,000 L penicillin fermentation, not real plant
 data.</p>
 </blockquote>
+<div id="reports" class="section level2">
+<h2>Reports</h2>
+<ul>
+<li><a href="reports/m1_report.md">M1: The unlabeled 90 h event and
+univariate control charts</a></li>
+</ul>
+</div>
+<div id="key-findings-so-far" class="section level2">
+<h2>Key findings so far</h2>
+<ul>
+<li><strong>An unlabeled disturbance.</strong> Eleven of the 100 batches
+show a sharp dissolved-oxygen crash at about 90 h, across all three
+control strategies. No label column in the dataset marks it.</li>
+<li><strong>Which batches get it.</strong> Before the event, the
+affected batches produce more CO₂ (higher carbon evolution rate at
+similar oxygen uptake) and are already oscillating. At the scheduled
+aeration step (90.2 h), DO2 and pH drop, the base pump saturates for
+1–1.5 h, and pH takes about 2 h to recover. This is an exploratory
+association in simulated data, not a confirmed mechanism.</li>
+<li><strong>Univariate charts don’t catch the event when it
+happens.</strong> They flag most affected batches as unusual long before
+90 h, and they alarm on 10 of 27 normal test batches. That is the
+baseline the multivariate model in M2 has to beat.</li>
+</ul>
+</div>
 <div id="data" class="section level2">
 <h2>Data</h2>
 <ul>
 <li><strong>Source:</strong> IndPenSim, Goldrick et al., Mendeley Data,
-DOI <a href="https://doi.org/10.17632/pdnjz7zz5x.2">10.17632/pdnjz7zz5x.2</a></li>
-<li><strong>License:</strong> TODO</li>
-<li><strong>Citations:</strong> TODO (two Goldrick et al. papers)</li>
-<li>Raw data are not committed. Download the two CSVs into
-<code>data/raw/</code>.</li>
+DOI <a href="https://doi.org/10.17632/pdnjz7zz5x.2">10.17632/pdnjz7zz5x.2</a>.</li>
+<li><strong>License:</strong> <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The
+data are subset and transformed in this project.</li>
+<li><strong>Citations:</strong>
+<ul>
+<li>Goldrick S., Ştefan A., Lovett D., Montague G., Lennox B. (2015).
+The development of an industrial-scale fed-batch fermentation
+simulation. <em>Journal of Biotechnology</em>, 193:70–82.</li>
+<li>Goldrick S., Duran-Villalobos C.A., Jankauskas K., Lovett D., Farid
+S.S., Lennox B. (2019). Modern day monitoring and control challenges
+outlined on an industrial-scale benchmark fermentation process.
+<em>Computers &amp; Chemical Engineering</em>. <a href="doi:10.1016/j.compchemeng.2019.05.037" class="uri">doi:10.1016/j.compchemeng.2019.05.037</a></li>
+</ul></li>
+<li>Raw data are not committed. Download the two CSVs from the Mendeley
+page into <code>data/raw/</code>.</li>
 </ul>
 <div id="batch-structure-verified-against-the-label-columns" class="section level3">
 <h3>Batch structure (verified against the label columns)</h3>
@@ -392,7 +428,7 @@ DOI <a href="https://doi.org/10.17632/pdnjz7zz5x.2">10.17632/pdnjz7zz5x.2</a></l
 <tr class="odd">
 <td>1–30</td>
 <td>Recipe-driven</td>
-<td>Reference set for control charts</td>
+<td>Clean training batches are the control-chart reference</td>
 </tr>
 <tr class="even">
 <td>31–60</td>
@@ -421,28 +457,102 @@ so every name from column 34 onward is shifted by two.
 <code>R/01_load_data.R</code> reads the file without the header and
 assigns the corrected names.</p>
 </div>
+<div id="data-observations" class="section level3">
+<h3>Data observations</h3>
+<ul>
+<li><strong>90 h event:</strong> batches 6, 18, 27, 32, 42, 44, 64, 68,
+70, 89 and 100 (DO2 below 6 mg/L between 80 and 110 h). Details in the
+M1 report.</li>
+<li><strong>Other unlabeled excursions:</strong> batch 7 (pH drop,
+161–206 h) and batch 20 (temperature spike at about 90 h) are excluded
+from the control-chart reference. Several other normal batches spend
+long periods with the base pump at maximum
+(<code>results/fb_ceiling_hours.csv</code>); they are review candidates
+for the M2 reference set.</li>
+</ul>
 </div>
-<div id="methods-planned" class="section level2">
-<h2>Methods (planned)</h2>
+</div>
+<div id="traintest-split" class="section level2">
+<h2>Train/test split</h2>
+<p>Batches are split once and saved in
+<code>splits/batch_split.csv</code> (script:
+<code>R/04_batch_split.R</code>, seed 20261031). Within each control
+strategy, two-thirds of the batches are used for training and one-third
+is held out for testing. Fault batches 91–100 are test only. The ten
+normal-operation batches with the 90 h event are held out as their own
+test group (batch 100 stays with the faults), so models learn only clean
+normal operation. Result: 53 train, 27 normal test, 10 event, 10 fault.
+The digital twin project reuses this split.</p>
+</div>
+<div id="methods" class="section level2">
+<h2>Methods</h2>
 <ol style="list-style-type: decimal">
-<li>Univariate control charts using batches 1–30 as reference</li>
-<li>PCA batch monitoring (Hotelling’s T², Q/SPE); fault detection on
-91–100</li>
-<li>PLS prediction of penicillin from Raman spectra, validated on
-held-out batches</li>
+<li><strong>M1, done:</strong> univariate control charts organized by
+control loop. Fixed limits for the controlled variables (pH,
+temperature); time-varying limits for base flow (the pH controller’s
+output), dissolved oxygen and CER.</li>
+<li><strong>M2, next:</strong> PCA batch monitoring with Hotelling’s T²
+and Q. Main question: can it detect the 90 h event when it happens?
+Faults 91–100 are a secondary check.</li>
+<li><strong>M3, planned:</strong> PLS prediction of penicillin from
+Raman spectra, validated on held-out batches, including behavior on the
+event batches.</li>
 </ol>
+</div>
+<div id="repository-layout" class="section level2">
+<h2>Repository layout</h2>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Folder</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>R/</code></td>
+<td>Analysis scripts, numbered in run order, plus shared settings
+(<code>key_variables.R</code>, <code>theme_portfolio.R</code>)</td>
+</tr>
+<tr class="even">
+<td><code>splits/</code></td>
+<td>The fixed train/test split</td>
+</tr>
+<tr class="odd">
+<td><code>results/</code></td>
+<td>Tables written by the scripts</td>
+</tr>
+<tr class="even">
+<td><code>figures/</code></td>
+<td>Figures written by the scripts</td>
+</tr>
+<tr class="odd">
+<td><code>reports/</code></td>
+<td>Quarto reports (<code>.qmd</code> source and rendered
+<code>.md</code>)</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="how-to-reproduce" class="section level2">
 <h2>How to reproduce</h2>
 <ol style="list-style-type: decimal">
-<li>Download the data into <code>data/raw/</code></li>
-<li>Run <code>R/01_load_data.R</code>, then
-<code>R/02_explore.R</code></li>
+<li>Download the data into <code>data/raw/</code>.</li>
+<li>Open <code>indpensim-process-analytics.Rproj</code> in RStudio.</li>
+<li>Run the scripts in <code>R/</code> in numeric order,
+<code>01_</code> to <code>09_</code>.</li>
+<li>Render <code>reports/m1_report.qmd</code> with Quarto.</li>
 </ol>
 </div>
 <div id="limitations" class="section level2">
 <h2>Limitations</h2>
-<p>Simulated data. Results show methods, not plant performance.</p>
+<p>Simulated data: results show methods, not plant performance. The 90 h
+event findings are exploratory; they were found and described on the
+same batches. Each report lists its own limitations.</p>
 </div>
 </div>
 

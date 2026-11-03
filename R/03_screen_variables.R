@@ -59,7 +59,7 @@ plot_loop <- function(name) {
               alpha = 0.7, linewidth = 0.4) +
     facet_wrap(~ panel, scales = "free_y", ncol = 1) +
     labs(title = paste("IndPenSim (simulated):", name, "loop"),
-         subtitle = "Grey = reference batches 1-30; black = fault batches 91-100")
+         subtitle = "Gray = reference batches 1-30; black = fault batches 91-100")
   print(p)
   ggsave(paste0("figures/loop_", name, ".png"), p, width = 10, height = 9, dpi = 150)
 }

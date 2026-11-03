@@ -38,7 +38,7 @@ p <- ggplot(zl, aes(t_rel, value, group = batch)) +
   geom_vline(xintercept = 0, linetype = 2) +
   facet_wrap(~ variable, scales = "free_y", ncol = 2) +
   labs(title = "IndPenSim (simulated): order of events around the aeration step",
-       subtitle = "Aligned on each batch's own Fg step; black = event batches (n = 10), grey = no-event (n = 80)",
+       subtitle = "Aligned on each batch's own Fg step; black = event batches (n = 10), gray = no-event (n = 80)",
        x = "Hours from aeration step", y = NULL)
 print(p)
 

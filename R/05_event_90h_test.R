@@ -38,6 +38,7 @@ p <- ggplot(pre_long, aes(group, value)) +
        x = NULL, y = NULL)
 print(p)
 ggsave(here::here("figures", "event_90h_pre_activity.png"), p, width = 8, height = 4.5, dpi = 150)
+fwrite(pre, here::here("results", "event_pre_activity.csv"))   # used by the M1 report
 
 # 2. Aeration step at ~90 h: before vs after, per batch
 fg <- dt[`Time (h)` %between% c(85, 95)][order(`Time (h)`),
