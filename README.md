@@ -74,8 +74,9 @@ operation. Result: 53 train, 27 normal test, 10 event, 10 fault. The digital twi
 
 1. Download the data into `data/raw/`.
 2. Open `indpensim-process-analytics.Rproj` in RStudio.
-3. Run the scripts in `R/` in numeric order, `01_` to `09_`.
-4. Render `reports/m1_report.qmd` with Quarto.
+3. Run `renv::restore()` to install the package versions recorded in `renv.lock`.
+4. Run the scripts in `R/` in numeric order, `01_` to `09_`.
+5. Render `reports/m1_report.qmd` with Quarto.
 
 ## Limitations
 
