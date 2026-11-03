@@ -1,0 +1,21 @@
+batch,onset_h,role,first_alarm_h,first_var,delay_h,status
+6,88,test_disturbance,26.4,Fb,-61.6,before onset
+18,88,test_disturbance,86.2,pH,-1.8,before onset
+27,88,test_disturbance,10.4,Fb,-77.6,before onset
+32,88,test_disturbance,50.6,T,-37.4,before onset
+42,88,test_disturbance,14.2,DO2,-73.8,before onset
+44,88,test_disturbance,11.4,DO2,-76.6,before onset
+64,88,test_disturbance,,,,missed
+68,88,test_disturbance,10.2,Fb,-77.8,before onset
+70,88,test_disturbance,50.6,T,-37.4,before onset
+89,88,test_disturbance,132.8,Fb,44.8,after onset
+91,20,test_fault,20,DO2,0,after onset
+92,80,test_fault,80,pH,0,after onset
+93,70,test_fault,0.2,Fb,-69.8,before onset
+94,20,test_fault,20,CER,0,after onset
+95,20,test_fault,20,DO2,0,after onset
+96,70,test_fault,50.4,T,-19.6,before onset
+97,20,test_fault,20,DO2,0,after onset
+98,80,test_fault,80,pH,0,after onset
+99,20,test_fault,20,DO2,0,after onset
+100,20,test_fault,20,CER,0,after onset

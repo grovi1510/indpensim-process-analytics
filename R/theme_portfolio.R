@@ -1,3 +1,5 @@
+library(poisonfrogs)
+
 pal <- poison_palette("Opuyama", return = "vector")
 
 col_ref   <- pal[1]               # #9AAEB0 background / reference batches

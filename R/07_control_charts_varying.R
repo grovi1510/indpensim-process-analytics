@@ -20,6 +20,8 @@ env <- melt(ref, id.vars = c("batch", "t_grid"), measure.vars = varying_lim)[,
 # Floor on SD: where all reference batches are nearly identical, SD ~ 0 would alarm on anything
 env[, sd := pmax(sd, quantile(sd, 0.10, na.rm = TRUE)), by = variable]
 env[, `:=`(lcl = center - 3 * sd, ucl = center + 3 * sd)]
+# Fb, DO2 and CER can't be negative: floor the lower limit at 0
+env[, lcl := pmax(lcl, 0)]
 
 # Plot: envelope, one 90 h event batch (44) and one fault batch (93)
 show <- dt[batch %in% c(44, 93)]
@@ -61,3 +63,8 @@ print(comb[role != "train", .(flagged = paste0(sum(any_alarm), "/", .N)), by = r
 
 ggsave(here::here("figures", "varying_limits_Fb_DO2_CER.png"), p_env, width = 8, height = 8, dpi = 150)
 fwrite(alarms_v, here::here("results", "varying_limits_alarms.csv"))
+
+comb2 <- alarms_v[, .(with_fb    = any(batch_alarm),
+                      without_fb = any(batch_alarm[variable != "Fb"])),
+                  by = .(batch, role, strategy)]
+fwrite(comb2, here::here("results", "varying_limits_combined.csv"))
