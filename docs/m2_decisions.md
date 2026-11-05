@@ -14,7 +14,7 @@ Recorded Nov 5, 2026, before any PCA model was fitted. Data: IndPenSim, simulate
 
 - The 10 event batches (`test_disturbance`) never enter the reference. Batch 100 stays in the fault set and is also reported with the event flag.
 - They are treated as unlabelled disturbances, not as faults.
-- Detection is reported against onset at 88 h in four classes, as in M1: before onset, at onset (88–92 h), late (after 92 h), missed.
+- Detection is reported against onset at 88 h n four classes (M1 used three: before, after, missed): before onset, at onset (88–92 h), late (after 92 h), missed.
 - Near-misses: batch 17 is a test batch, so its result is out of sample. Batches 61 and 66 are training batches; if they stay in the reference after Phase I, their results are in sample and are reported as such.
 - Bar to beat (M1, all five charts): normal 10/27 alarmed; events 9/10 flagged but 8 before onset, 1 late, 1 missed (64); faults 10/10.
 
@@ -71,3 +71,6 @@ Recorded Nov 5, 2026, before any PCA model was fitted. Data: IndPenSim, simulate
 - Revision: same run rule (3 consecutive samples); limits re-set at the batch level. For each reference batch, the highest level held for 3 consecutive samples; limit = 97.5th percentile across the 45 reference batches, per statistic (about 5% of reference batches alarm on either).
 - Calibrated on reference batches only, so the 27 normal test batches stay an out-of-sample false-alarm check.
 - Both runs are reported. The calibrated run is primary and feeds results/fault_detection.csv.
+- Reporting choice made after seeing results: the summary counts first alarms from −2 h to +4 h around onset as "near onset", because batches 32 and 68 alarm during the pre-event oscillation documented on Nov 3. Pre-registered classes are reported too.
+
+Note: this file was kept locally during the session and first committed on Nov 5 at 10:12, after the results, because a `.gitignore` rule hid the `docs/` folder. The git history therefore does not show the order; the dated sections do.

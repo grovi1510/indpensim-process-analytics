@@ -18,6 +18,7 @@ st  <- readRDS(here::here("data", "processed", paste0("pca_stats_", ref_set, ".r
 lim <- fread(here::here("results", paste0("pca_limits_", ref_set, ".csv")))
 T2_lim <- lim[stat == "T2", theoretical]; Q_lim <- lim[stat == "Q", theoretical]
 tag <- paste0(ref_set, "_k", m$k, "_", calib)
+lim_lab <- if (calib == "batch") paste0("batch-calibrated limits (", 100 * q_batch, "th pct of reference batch maxima)") else "per-sample 99% limits"
 
 p1_removed <- c(ref_excluded,
                 fread(here::here("results", paste0("phase1_excluded_", ref_set, ".csv")))$batch)
@@ -75,7 +76,7 @@ per[!is.na(onset_h), status := fcase(!flagged, "missed",
                                      default = "late")]
 
 options(width = 200)
-cat("\nAlarm rule:", n_run, "consecutive samples beyond the 99% limit, T2 or Q. Model:", tag, "\n")
+cat("\nAlarm rule:", n_run, "consecutive samples beyond the", lim_lab, "on T2 or Q. Model:")
 
 cat("\n-- Batches flagged, by group --\n")
 print(per[, .(flagged = paste0(sum(flagged), "/", .N)), by = group])
@@ -119,7 +120,7 @@ p_ev <- ggplot(pl, aes(t_grid, value, group = batch)) +
   scale_colour_manual(values = col_strat) +
   facet_wrap(~ stat, ncol = 1, scales = "free_y") +
   labs(title = "IndPenSim (simulated): PCA monitoring through the 90 h event",
-       subtitle = paste0("Gray = reference batches; colour = 10 event batches; dashed = 99% limit; dotted = 88 h. Model: ", tag),
+       subtitle = paste0("Gray = reference batches; colour = 10 event batches; dashed = ", lim_lab, "; dotted = 88 h. Model: ", tag),
        x = "Time (h)", y = "Statistic (log scale)")
 print(p_ev)
 
@@ -129,8 +130,8 @@ ggsave(here::here("figures", paste0("pca_event_trajectories_", tag, ".png")), p_
 fwrite(per, here::here("results", paste0("m2_detection_", tag, ".csv")))
 if (primary) {
   fwrite(per[role == "test_fault",
-             .(batch, onset_h, flagged, first_alarm_h, first_stat, delay_h, status,
-               method = paste0("PCA ", tag, ", T2/Q 99%, ", n_run, "-sample run rule"))],
+             .(batch, onset_h, flagged, first_alarm_h, first_stat, delay_h = round(delay_h, 1), status,
+               method = paste0("PCA ", tag, ", T2/Q ", lim_lab, ", ", n_run, "-sample run rule"))],
          here::here("results", "fault_detection.csv"))
 }
 
