@@ -133,3 +133,6 @@ if (primary) {
                method = paste0("PCA ", tag, ", T2/Q 99%, ", n_run, "-sample run rule"))],
          here::here("results", "fault_detection.csv"))
 }
+
+fwrite(data.table(stat = c("T2", "Q"), lim = c(T2_lim, Q_lim), calib = calib),
+       here::here("results", paste0("pca_limits_used_", tag, ".csv")))
