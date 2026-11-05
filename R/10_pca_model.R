@@ -50,6 +50,14 @@ print(zero_sd[order(-frac_zero)])
 pca_vars <- zero_sd[frac_zero <= 0.5, variable]
 cat("PCA variables (", length(pca_vars), "):", paste(pca_vars, collapse = ", "), "\n")
 
+# Phase I exclusions from M2.2 (no file until 11_ has run once)
+f_p1 <- here::here("results", paste0("phase1_excluded_", ref_set, ".csv"))
+if (file.exists(f_p1)) {
+  p1_out <- fread(f_p1)$batch
+  ref_batches <- setdiff(ref_batches, p1_out)
+  cat("Phase I exclusions:", paste(p1_out, collapse = ", "), "->", length(ref_batches), "batches\n")
+}
+
 # SD floor, as in 07_: avoid dividing by ~0 where reference batches coincide
 traj <- traj[variable %in% pca_vars]
 traj[, s := pmax(s, quantile(s[s > 1e-8], 0.10)), by = variable]
@@ -122,7 +130,7 @@ p_strat <- ggplot(bs, aes(PC1, PC2, colour = strategy, shape = strategy)) +
 print(p_strat)
 
 # ---- 6. Choose k, then save --------------------------------------------------
-k <- 2L  # set after reading the table and figure, and record why in m2_decisions.md
+k <- 1L  # set after reading the table and figure, and record why in m2_decisions.md
 if (!is.na(k)) {
   print(round(pca$rotation[, seq_len(k)], 2))   # loadings for interpretation
   dir.create(here::here("results"), showWarnings = FALSE)
