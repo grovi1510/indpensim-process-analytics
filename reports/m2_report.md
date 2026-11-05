@@ -7,22 +7,22 @@ Gabriela Rovi
 
 ## In plain language
 
-The penicilin fermentation process is watched through a dozen sensors at
-once: oxygen, CO₂, pH, temperature, pump flows. Milestone 1 watched each
-sensor on its own chart. That flagged the batches with the 90 h
+The penicillin fermentation process is watched through a dozen sensors
+at once: oxygen, CO₂, pH, temperature, pump flows. Milestone 1 watched
+each sensor on its own chart. That flagged the batches with the 90 h
 disturbance as “unusual” long before anything happened, which is not
 much use to an operator.
 
 This milestone combines the sensors into one model of normal operation
 (principal component analysis, PCA) and raises an alarm when a batch
 moves away from it. The combined model sounds the alarm when the
-disturbance actually happens, within about 2 hours of it, in 7 of the 10
-affected batches. The single-sensor charts did that in 1 of 10. It does
-not reduce false alarms, though: about a third of normal batches still
-alarm at some point. And it is slower than a simple pH chart for faults
-that move only pH. The practical answer is to use both: the combined
-model for disturbances that move many signals together, and single
-charts on the critical controlled variables.
+disturbance actually happens, within about 2.5 hours of it, in 7 of the
+10 affected batches. The single-sensor charts did that in 1 of 10. It
+does not reduce false alarms, though: about a third of normal batches
+still alarm at some point. And it is slower than a simple pH chart for
+faults that move only pH. The practical answer is to use both: the
+combined model for disturbances that move many signals together, and
+single charts on the critical controlled variables.
 
 ## Summary
 
@@ -56,9 +56,10 @@ detection. The M1 results are the bar to beat.
 
 All choices (reference set, Phase I rule, number of components, limits,
 alarm rule) were written down before the step they govern, in
-[`docs/m2_decisions.md`](../docs/m2_decisions.md). One choice was
-revised after seeing results (the limits); the revision and its reason
-are recorded there and reported below.
+[`docs/m2_decisions.md`](../docs/m2_decisions.md). Two things were set
+after seeing results: the alarm limits (revised after the first
+monitoring run) and the −2 h allowance in the event summary. Both are
+reported alongside the pre-registered version.
 
 ## Method
 
@@ -247,9 +248,11 @@ of sample; reference batches are in sample.
 
 - Batches 7 and 20 are caught at their known excursions (160 h and 87.8
   h), out of sample.
-- Batch 61, the near-miss of the event, is not flagged. Neither is 39.
-  Under the calibrated limits both look normal, so their Phase I removal
-  was driven by the tight theoretical T² limit, not by an excursion.
+- Batches 61 and 39 are not flagged. Their Phase I removal came from the
+  tight theoretical T² limit; under the calibrated limits the model sees
+  them as normal. Batch 61’s strain was mainly in pH (below 6.3 from 79
+  to 89 h), which the model barely weights, the same dilution seen with
+  the pH faults.
 - Batch 17 alarms only at 145 h, not near 88 h. Batch 66 alarms at 89.8
   h, in sample.
 - Batch 75, a normal test batch with the base pump near maximum for
