@@ -1,0 +1,101 @@
+batch,role,strategy,group,onset_h,first_T2_h,first_Q_h,pct_T2,pct_Q,pre24_pct_out,onset_alarm,first_alarm_h,first_stat,flagged,delay_h,status
+1,train,recipe,reference (in sample),,,152.2,0,0.530973451327434,,,152.2,Q,TRUE,,
+2,train,recipe,reference (in sample),,,96.6,0,1.56521739130435,,,96.6,Q,TRUE,,
+3,test,recipe,test,,,,0,2.95652173913043,,,,,FALSE,,
+4,test,recipe,test,,,,0,0.521739130434783,,,,,FALSE,,
+5,train,recipe,reference (in sample),,,,0,0,,,,,FALSE,,
+6,test_disturbance,recipe,test_disturbance,88,28.6,90.4,4.95652173913044,5.73913043478261,5,TRUE,28.6,T2,TRUE,-59.4,before onset
+7,train,recipe,phase I removed,,,154.6,0,23.8260869565217,,,154.6,Q,TRUE,,
+8,train,recipe,reference (in sample),,,,0,0.347826086956522,,,,,FALSE,,
+9,train,recipe,phase I removed,,119.8,16.6,47.7391304347826,2.95652173913043,,,16.6,Q,TRUE,,
+10,test,recipe,test,,,,0,0.521739130434783,,,,,FALSE,,
+11,test,recipe,test,,,,0,0.198019801980198,,,,,FALSE,,
+12,train,recipe,reference (in sample),,7.8,10.2,0.869565217391304,1.56521739130435,,,7.8,T2,TRUE,,
+13,train,recipe,reference (in sample),,,,0,2.59259259259259,,,,,FALSE,,
+14,train,recipe,reference (in sample),,,19.8,0,0.347826086956522,,,19.8,Q,TRUE,,
+15,train,recipe,reference (in sample),,15.8,15.2,0.441988950276243,1.32596685082873,,,15.2,Q,TRUE,,
+16,train,recipe,reference (in sample),,,20.4,0,0.695652173913044,,,20.4,Q,TRUE,,
+17,test,recipe,test,,,88.2,0.212765957446809,5.53191489361702,,,88.2,Q,TRUE,,
+18,test_disturbance,recipe,test_disturbance,88,90.6,90.4,0.347826086956522,6.43478260869565,5,TRUE,90.4,Q,TRUE,2.40000000000001,at onset
+19,train,recipe,reference (in sample),,,,0,1.15942028985507,,,,,FALSE,,
+20,train,recipe,phase I removed,,,86.8,0.260869565217391,15.5652173913043,,,86.8,Q,TRUE,,
+21,test,recipe,test,,,102.2,0,4.56140350877193,,,102.2,Q,TRUE,,
+22,train,recipe,reference (in sample),,,,0,0.0869565217391304,,,,,FALSE,,
+23,train,recipe,reference (in sample),,,,0,0,,,,,FALSE,,
+24,test,recipe,test,,,166,0,0.869565217391304,,,166,Q,TRUE,,
+25,test,recipe,test,,16,15.6,15.6521739130435,2.52173913043478,,,15.6,Q,TRUE,,
+26,test,recipe,test,,,68.2,0,5.1304347826087,,,68.2,Q,TRUE,,
+27,test_disturbance,recipe,test_disturbance,88,64.8,88.4,19.0521327014218,3.12796208530806,90,TRUE,64.8,T2,TRUE,-23.2,before onset
+28,train,recipe,reference (in sample),,,,0,0,,,,,FALSE,,
+29,train,recipe,reference (in sample),,,35,0,1.65217391304348,,,35,Q,TRUE,,
+30,train,recipe,phase I removed,,127,,42.3478260869565,2.78260869565217,,,127,T2,TRUE,,
+31,train,operator,reference (in sample),,,,0,1.30434782608696,,,,,FALSE,,
+32,test_disturbance,operator,test_disturbance,88,68.6,81.6,22.8695652173913,4.26086956521739,82.5,TRUE,68.6,T2,TRUE,-19.4,before onset
+33,train,operator,reference (in sample),,,,0,0.869565217391304,,,,,FALSE,,
+34,train,operator,reference (in sample),,,34,0,2.95652173913043,,,34,Q,TRUE,,
+35,test,operator,test,,,84.2,0,3.16326530612245,,,84.2,Q,TRUE,,
+36,test,operator,test,,152.6,,24.0869565217391,0.347826086956522,,,152.6,T2,TRUE,,
+37,train,operator,reference (in sample),,,49,0,1.04761904761905,,,49,Q,TRUE,,
+38,test,operator,test,,,205.6,0,0.434782608695652,,,205.6,Q,TRUE,,
+39,train,operator,phase I removed,,,42.4,0,11.1304347826087,,,42.4,Q,TRUE,,
+40,train,operator,reference (in sample),,,,0.0869565217391304,0.173913043478261,,,,,FALSE,,
+41,train,operator,reference (in sample),,,,0,0.608695652173913,,,,,FALSE,,
+42,test_disturbance,operator,test_disturbance,88,15.2,15,18.4347826086957,6.34782608695652,35.8333333333333,TRUE,15,Q,TRUE,-73,before onset
+43,test,operator,test,,,12.6,0,6.43478260869565,,,12.6,Q,TRUE,,
+44,test_disturbance,operator,test_disturbance,88,43.2,20.8,15.8260869565217,18.2608695652174,67.5,TRUE,20.8,Q,TRUE,-67.2,before onset
+45,test,operator,test,,119.2,119.6,42.5217391304348,14.7826086956522,,,119.2,T2,TRUE,,
+46,train,operator,reference (in sample),,,,0,0.173913043478261,,,,,FALSE,,
+47,train,operator,reference (in sample),,,,0.175438596491228,1.66666666666667,,,,,FALSE,,
+48,train,operator,reference (in sample),,179.6,229.4,14.8695652173913,1.47826086956522,,,179.6,T2,TRUE,,
+49,train,operator,reference (in sample),,,,0,2.08695652173913,,,,,FALSE,,
+50,train,operator,reference (in sample),,,79,0,2.17391304347826,,,79,Q,TRUE,,
+51,train,operator,reference (in sample),,128.4,,41.1555555555556,0.355555555555556,,,128.4,T2,TRUE,,
+52,train,operator,reference (in sample),,,33.4,0,1.21739130434783,,,33.4,Q,TRUE,,
+53,train,operator,reference (in sample),,,,0,0.103626943005181,,,,,FALSE,,
+54,test,operator,test,,,,0,0.521739130434783,,,,,FALSE,,
+55,train,operator,reference (in sample),,,,0,0.446428571428571,,,,,FALSE,,
+56,test,operator,test,,16,15.8,0.347826086956522,1.21739130434783,,,15.8,Q,TRUE,,
+57,test,operator,test,,,137.2,0,1.47826086956522,,,137.2,Q,TRUE,,
+58,train,operator,reference (in sample),,,,0,0.782608695652174,,,,,FALSE,,
+59,test,operator,test,,,106.2,0,1.76470588235294,,,106.2,Q,TRUE,,
+60,train,operator,reference (in sample),,,50.4,0,5.47826086956522,,,50.4,Q,TRUE,,
+61,train,apc_raman,phase I removed,,23,46.8,0.695652173913044,10.2608695652174,,,23,T2,TRUE,,
+62,train,apc_raman,reference (in sample),,,68.6,0,4.78260869565217,,,68.6,Q,TRUE,,
+63,train,apc_raman,reference (in sample),,,,0,0.434782608695652,,,,,FALSE,,
+64,test_disturbance,apc_raman,test_disturbance,88,,88.2,0.173913043478261,2.78260869565217,3.33333333333333,TRUE,88.2,Q,TRUE,0.200000000000003,at onset
+65,test,apc_raman,test,,,22.6,0,1.1304347826087,,,22.6,Q,TRUE,,
+66,train,apc_raman,reference (in sample),,,83.6,0,7.21739130434783,,,83.6,Q,TRUE,,
+67,train,apc_raman,phase I removed,,,59.6,0,34.3712574850299,,,59.6,Q,TRUE,,
+68,test_disturbance,apc_raman,test_disturbance,88,,22.8,0.347826086956522,5.30434782608696,5.83333333333333,TRUE,22.8,Q,TRUE,-65.2,before onset
+69,train,apc_raman,reference (in sample),,,97.2,0,7.28888888888889,,,97.2,Q,TRUE,,
+70,test_disturbance,apc_raman,test_disturbance,88,,22.6,0.260869565217391,3.65217391304348,6.66666666666667,TRUE,22.6,Q,TRUE,-65.4,before onset
+71,test,apc_raman,test,,9.6,15.6,1.58878504672897,5.14018691588785,,,9.6,T2,TRUE,,
+72,test,apc_raman,test,,,,0,0,,,,,FALSE,,
+73,train,apc_raman,phase I removed,,,27.4,0,62,,,27.4,Q,TRUE,,
+74,train,apc_raman,reference (in sample),,,,0,0,,,,,FALSE,,
+75,test,apc_raman,test,,,53,0,21.25,,,53,Q,TRUE,,
+76,train,apc_raman,reference (in sample),,,,0,0.782608695652174,,,,,FALSE,,
+77,test,apc_raman,test,,,22.8,0,0.878048780487805,,,22.8,Q,TRUE,,
+78,test,apc_raman,test,,,9.8,0.173913043478261,1.73913043478261,,,9.8,Q,TRUE,,
+79,train,apc_raman,reference (in sample),,,108.2,0,1.1304347826087,,,108.2,Q,TRUE,,
+80,train,apc_raman,reference (in sample),,,,0,1.39130434782609,,,,,FALSE,,
+81,train,apc_raman,reference (in sample),,,,0,0,,,,,FALSE,,
+82,train,apc_raman,reference (in sample),,,,0,0.0869565217391304,,,,,FALSE,,
+83,test,apc_raman,test,,,161.2,0,2,,,161.2,Q,TRUE,,
+84,train,apc_raman,reference (in sample),,,,0,0.0869565217391304,,,,,FALSE,,
+85,train,apc_raman,reference (in sample),,,,0,0.2,,,,,FALSE,,
+86,test,apc_raman,test,,,,0,0,,,,,FALSE,,
+87,train,apc_raman,reference (in sample),,,,0,0.540540540540541,,,,,FALSE,,
+88,train,apc_raman,reference (in sample),,,,0,0.260869565217391,,,,,FALSE,,
+89,test_disturbance,apc_raman,test_disturbance,88,,90,0.0869565217391304,5.39130434782609,0.833333333333333,TRUE,90,Q,TRUE,2,at onset
+90,test,apc_raman,test,,,,0,0.260869565217391,,,,,FALSE,,
+91,test_fault,fault,test_fault,20,20.4,20.4,80.4347826086957,20.7826086956522,0,TRUE,20.4,both,TRUE,0.399999999999999,at onset
+92,test_fault,fault,test_fault,80,,140.4,0,14.1739130434783,0,FALSE,140.4,Q,TRUE,60.4,late
+93,test_fault,fault,test_fault,70,,29.6,0.761904761904762,15.0476190476191,2.5,TRUE,29.6,Q,TRUE,-40.4,before onset
+94,test_fault,fault,test_fault,20,20.4,20.4,60.695652173913,27.9130434782609,1.01010101010101,TRUE,20.4,both,TRUE,0.399999999999999,at onset
+95,test_fault,fault,test_fault,20,20.4,20.4,88.8151658767773,21.1374407582938,1.01010101010101,TRUE,20.4,both,TRUE,0.399999999999999,at onset
+96,test_fault,fault,test_fault,70,,77.2,0.434782608695652,16.2608695652174,0,FALSE,77.2,Q,TRUE,7.2,late
+97,test_fault,fault,test_fault,20,20.4,20.6,21.9555555555556,15.4666666666667,0,TRUE,20.4,T2,TRUE,0.399999999999999,at onset
+98,test_fault,fault,test_fault,80,10.2,15.8,0.782608695652174,12.3478260869565,7.5,FALSE,10.2,T2,TRUE,-69.8,before onset
+99,test_fault,fault,test_fault,20,20.4,20.4,58.1739130434783,21.4782608695652,3.03030303030303,TRUE,20.4,both,TRUE,0.399999999999999,at onset
+100,test_fault,fault,test_fault,20,20.4,20.4,20.5217391304348,15.7391304347826,1.01010101010101,TRUE,20.4,both,TRUE,0.399999999999999,at onset
